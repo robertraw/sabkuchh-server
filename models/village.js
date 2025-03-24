@@ -98,10 +98,18 @@ const userSchema = new Schema({
   village:String,
   block:String,
   district:String,
+  wallet:{
+    type:Number,
+    default:0
+  },
   stocks:[{
     stock: {
       type: Schema.Types.ObjectId,
       ref: 'Inventory',
+    },
+    name:{
+      type:String,
+      required:true,
     },
     quantity: {
       type: Number,
