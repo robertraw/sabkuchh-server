@@ -5,22 +5,11 @@ import { User } from '../models/village.js';
 export const getStockUserDetails = async (req, res) => {
     try {
       const { district, block, village } = req.params; // Include district and block
-      // const usersWithStock = await User.aggregate([
-      //   { $match: { 'stocks._id': stockObjectId } },
-      //   { $unwind: '$stocks' },
-      //   { $match: { 'stocks._id': stockObjectId } },
-      //   { $project: { _id: 1, 'stocks.quantity': 1 } }
-      // ]);
       const user = await User.findOne({ district, block, village });
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
       }
       const {stocks} =user;
-      // // Extract user IDs and quantities
-      // const userStockDetails = usersWithStock.map(user => ({
-      //   userId: user._id,
-      //   quantity: user.stocks.quantity,
-      // }));
       res.status(200).json(stocks);
     } catch (error) {
       console.error('Error fetching user stock details:', error);
